@@ -37,21 +37,20 @@
 				</li>
 				
 				<li class="nav-item">
-					<a href="registration" class="nav-link">Registration</a>
+					<a href="registration" class="nav-link" th:unless="${SessionId}">Registration</a>
 				</li>
 				
 				
 			</ul>
 			
 			
-			
 			<ul class="navbar-nav ml-auto">
 			
 				<li class="nav-item" th:if="${SessionId}">
-					<a href="destroy" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+					<a href="logout" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				</li>
 
-				<li th:unless="${SessionId}" class="nav-item">
+				<li class="nav-item" th:unless="${SessionId}" >
 					<a href="login" class="nav-link link-black-100"> 
 					<i class="glph-icon flaticon-question mr-2"></i>LogIn
 					</a>
