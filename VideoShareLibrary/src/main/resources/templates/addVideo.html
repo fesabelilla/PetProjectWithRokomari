@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: htmlHead">
+
+</head>
+<body>
+	<!-- Nav-bar start -->
+	<nav  th:replace="fragments :: htmlNavbar"></nav>
+	<!-- Nav-bar end-->
+	
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<form method="POST" action="addVideo" role="form" th:object="${video}">
+						
+						<div class="form-group">
+							<h2>Fill Up All Information For Publish Your Video</h2>
+						</div>
+						
+						<div class="form-group">
+							<label for="title" class="control-label">Video Title</label> 
+							<input type="text" class="form-control" name="videoTitle" id="videoTitle" placeholder="Enter Video Title"></input>
+							<style>
+							  .control-label:after {
+							    content:" *";
+							    color: red;
+							  }
+							</style>
+							<span style="color:red;" th:if="${#fields.hasErrors('videoTitle')}" th:errors="*{videoTitle}"> </span>
+						</div>
+						
+						<div class="form-group">
+							<label for="writer" class="control-label">Video Link</label> 
+							<input type="url" class="form-control" name="videoLink" id="videoLink" placeholder="Enter Video Link">
+							<span style="color:red;" th:if="${#fields.hasErrors('videoLink')}" th:errors="*{videoLink}"> </span>
+						</div>
+						
+						
+						<div class="form-group">
+							<button id="videoSubmit" type="submit" class="btn btn-info btn-block">Add Video</button>
+						</div>
+						 
+						<hr>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
