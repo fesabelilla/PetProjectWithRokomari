@@ -20,9 +20,7 @@
 	<!-- Nav-bar start -->
 	<nav  th:replace="fragments :: htmlNavbar"></nav>
 	<!-- Nav-bar end-->
-	
 	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
-
 	<!--HEADER
 	<header th:replace="fragments :: htmlHeader"></header>
 	 -->
@@ -34,27 +32,23 @@
         <!--Card 1-->
 <div class="container" >
 	<div class="row">
-		<div class="card mb-3 col-md-3" th:each="video : ${allVideos}">
-		
-			<div class="card mb-12" style="background-color: black; height: 200px; width:250px; display: inline;">
-
+		<div class="card mb-6 col-md-6">
+			<div class="card mb-12"style="background-color: black;">
 			<iframe  class="vid" id="yt"
-				th:src="'https://www.youtube.com/embed/'+${video.videoLink}" allow="autoplay">
+				th:src="'https://www.youtube.com/embed/'+${video.videoLink}+'?autoplay=1&loop=1&autopause=0'" allow="autoplay">
 			</iframe>
-
 			</div>
 			
-			<div class="card mb-12"style="background-color: white; height: 300px; display: inline;">
+			<div class="card mb-12" style="background-color: white; height: 200px; display: inline;">
 				<div id="content">
-				
-				<div class=" container ml-3">
+				  <!-- <center>
+				        <button type="button" onclick="myFunction()">Play</button>
+				    </center> 
+				   --> 
+				    <div class=" container ml-3">
 					<h5 class="card-title" style="color:blue" th:text=${video.videoTitle}><strong>Card title</strong></h5>
 				</div>
 				
-				<center>
-				    <a th:href="'viewVideo/?videoId='+${video.videoId}" class="card=link btn btn-info">View Video</a>
-				 </center>
-				  
 				 <div class="container ml-3 font-weight-bold">
 					<table>
 						<tr>
@@ -67,20 +61,39 @@
 							<td style="font-size: 0.875em; color:#1078E2;" 
 								th:text="' '+${video.viewCount}"></td>
 						</tr>
-						<tr>
-							<td style="font-size: 0.875em">Like :</td>
-							<td style="font-size: 0.875em; color:Blue"
-								th:text="' '+${video.likeCount}"></td>
-						</tr>
-						<tr>
-							<td style="font-size: 0.875em">DisLike :</td>
-							<td style="font-size: 0.875em" th:text="' '+${video.dislikeCount}"></td>
-						</tr>
+						
 					</table>
 				</div>
-				 
+				
+						<div class="card mb-12" >
+					<div class="container">
+  						<div class="row">
+  							<div class="col">
+								<form  method="post" action="/like">
 			
-					
+									<div class="form-group row">
+										<div class="col-8">
+											<button name="submit" type="submit" class="btn btn-success">Like</button>
+										</div>
+									</div>
+								</form>
+							</div>
+							
+							<div class="col">
+								<form  method="post" action="/dislike">
+									<div class="form-group row">
+										<div class="col-8">
+											<button name="submit" type="submit" class="btn btn-danger">DisLike</button>
+										</div>
+									</div>
+								</form>
+							</div>
+				</div>
+			</div>				
+		</div>
+				
+			
+				</div>				
 				</div>
 			</div>
 		
@@ -89,23 +102,11 @@
        
  </div>
  
- <script >
-	 function myFunction() {
-		    $("#content").hide();
-		    // $("#yt")[0].src += "?autoplay=1&mute=0";
-		    $("#yt")[0].src += "?autoplay=1&loop=1&autopause=0";
-		    $("#yt").show();
-		    };
- </script>
- 				
  
- <!--  <script src="script.js"></script> -->
-	
-
     <br>
 	
 	<!-- FOOTER -->
-	<footer th:replace="fragments :: htmlFooter"></footer>
+	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -113,9 +114,7 @@
 
 	<!-- for date -->
 
-	<script >
-		$('#year').text(new Date().getFullYear());
-	</script>
+	
 
 </body>
 </html>

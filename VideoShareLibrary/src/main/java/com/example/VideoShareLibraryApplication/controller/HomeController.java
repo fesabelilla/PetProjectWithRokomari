@@ -2,6 +2,7 @@ package com.example.VideoShareLibraryApplication.controller;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.VideoShareLibraryApplication.model.Login;
 import com.example.VideoShareLibraryApplication.model.User;
+import com.example.VideoShareLibraryApplication.model.Video;
 import com.example.VideoShareLibraryApplication.repository.UserRepo;
+import com.example.VideoShareLibraryApplication.repository.VideoRepo;
 
 
 
@@ -30,6 +33,8 @@ public class HomeController {
 	
 	@Autowired
 	UserRepo userRepo;
+	@Autowired
+	VideoRepo videoRepo;
 	
 	HttpServletRequest request;
 	String sessionID ;
@@ -45,6 +50,12 @@ public class HomeController {
 	
 	@GetMapping("/home")
 	private String homepage(Model model) {
+		
+		List<Video> allVideos = videoRepo.findAll();
+		model.addAttribute("allVideos", allVideos);
+		
+		System.out.println(allVideos.indexOf(0));
+		
 		return "homePage.html";
 	}
 	
