@@ -129,8 +129,6 @@ public class VideoController {
 			return "redirect:/login";
 		}
 		else {
-			
-			try {
 				sessionId = (String) request.getSession().getAttribute("SessionId");
 				userId = Integer.valueOf(sessionId);
 				int id = videoIds;
@@ -152,20 +150,20 @@ public class VideoController {
 					detailRepo.save(detail);
 					
 					
-					//String idVideo = String.valueOf(userDetail.iterator().next().getVideoId());
-					//viewVedio(idVideo,model,request);
-					
 					redirectAttributes.addFlashAttribute("message", "Video Liked");
 					redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 					
 					return "redirect:/home";
 				}
-				
+				else if(!userDetail.isEmpty() && userDetail.iterator().next().getDislikeCount() == 1) {
+					redirectAttributes.addFlashAttribute("message", "You disliked the video before");
+					redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+					
+					return "redirect:/home";
+					
+				}
 				
 				else {
-					
-					//String idVideo = String.valueOf(userDetail.iterator().next().getVideoId());
-					//viewVedio(idVideo,model,request);
 					
 					redirectAttributes.addFlashAttribute("message", "You already like the video");
 					redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
@@ -173,31 +171,62 @@ public class VideoController {
 					return "redirect:/home";
 					
 				}
-				
-				
-				
-				
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("message", "You already like the video");
-				redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
-				
-				return "redirect:/home";
-				
-			}
-		
 			
 		}
 		
 	}
 	
 	@PostMapping("/dislike")
-	private String dislikeVideo(Model model,@RequestParam String videoId) {
+	private String dislikeVideo(Model model,@ModelAttribute Detail detail,HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 		if(model.getAttribute("SessionId") == null) {
-			return "login.html";
+			return "redirect:/login";
 		}
 		else {
-			return "addVideo.html";
+				sessionId = (String) request.getSession().getAttribute("SessionId");
+				userId = Integer.valueOf(sessionId);
+				int id = videoIds;
+				int likeCount = 0;
+				int dislikeCount = 1;
+				
+				User user = userRepo.getById(userId);
+				String userName = user.getFullName();
+				
+				Collection<Detail> userDetail = detailRepo.ValidUser(userId,id);  
+				
+				if(userDetail.isEmpty()) {
+					detail.setDislikeCount(dislikeCount);
+					detail.setLikeCount(likeCount);
+					detail.setUserId(userId);
+					detail.setVideoId(id);
+					detail.setUserName(userName);
+		
+					detailRepo.save(detail);
+					
+					
+					redirectAttributes.addFlashAttribute("message", "Video Disliked");
+					redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+					
+					return "redirect:/home";
+				}
+				
+				
+				else if(!userDetail.isEmpty() && userDetail.iterator().next().getLikeCount() == 1) {
+					
+					redirectAttributes.addFlashAttribute("message", "You liked the video before");
+					redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+					
+					return "redirect:/home";
+					
+				}
+				else {
+					redirectAttributes.addFlashAttribute("message", "You already dislike the video");
+					redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+					return "redirect:/home";
+				}
+			
 		}
+	
 	}
 	
 
