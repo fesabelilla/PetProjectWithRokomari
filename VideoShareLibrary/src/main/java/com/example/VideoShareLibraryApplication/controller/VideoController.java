@@ -107,6 +107,13 @@ public class VideoController {
 		
 		model.addAttribute(video);
 		
+		List<String> likedUserList = detailRepo.findLikedUserList(videoIds,1);
+		model.addAttribute("likedUserList", likedUserList);
+		
+		List<String> disLikedUserList = detailRepo.findDislikedUserList(videoIds,1);
+		model.addAttribute("disLikedUserList", disLikedUserList);
+		
+		
 		return "viewVideo.html";
 	}
 	

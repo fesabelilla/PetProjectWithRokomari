@@ -54,8 +54,6 @@ public class HomeController {
 		List<Video> allVideos = videoRepo.findAll();
 		model.addAttribute("allVideos", allVideos);
 		
-		System.out.println(allVideos.indexOf(0));
-		
 		return "homePage.html";
 	}
 	
