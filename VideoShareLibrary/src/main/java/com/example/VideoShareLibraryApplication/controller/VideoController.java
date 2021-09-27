@@ -1,6 +1,8 @@
 package com.example.VideoShareLibraryApplication.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -138,7 +140,7 @@ public class VideoController {
 				User user = userRepo.getById(userId);
 				String userName = user.getFullName();
 				
-				Collection<Detail> userDetail = detailRepo.ValidUser(userId);  
+				Collection<Detail> userDetail = detailRepo.ValidUser(userId,id);  
 				
 				if(userDetail.isEmpty()) {
 					detail.setDislikeCount(dislikeCount);
@@ -160,28 +162,10 @@ public class VideoController {
 				}
 				
 				
-				else if(userDetail.iterator().next().getVideoId() != id) {
-					detail.setDislikeCount(dislikeCount);
-					detail.setLikeCount(likeCount);
-					detail.setUserId(userId);
-					detail.setVideoId(id);
-					detail.setUserName(userName);
-		
-					detailRepo.save(detail);
-
-					String idVideo = String.valueOf(userDetail.iterator().next().getVideoId());
-					viewVedio(idVideo,model,request);
-					
-					redirectAttributes.addFlashAttribute("message", "Video Liked");
-					redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-					
-					return "redirect:/home";
-				}
-				
 				else {
 					
-					String idVideo = String.valueOf(userDetail.iterator().next().getVideoId());
-					viewVedio(idVideo,model,request);
+					//String idVideo = String.valueOf(userDetail.iterator().next().getVideoId());
+					//viewVedio(idVideo,model,request);
 					
 					redirectAttributes.addFlashAttribute("message", "You already like the video");
 					redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
