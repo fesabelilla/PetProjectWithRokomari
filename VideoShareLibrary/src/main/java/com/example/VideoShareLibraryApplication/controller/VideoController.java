@@ -26,6 +26,8 @@ import com.example.VideoShareLibraryApplication.repository.DetailRepo;
 import com.example.VideoShareLibraryApplication.repository.UserRepo;
 import com.example.VideoShareLibraryApplication.repository.VideoRepo;
 
+
+
 @Controller
 @SessionAttributes("SessionId")
 public class VideoController {
@@ -138,6 +140,7 @@ public class VideoController {
 				User user = userRepo.getById(userId);
 				String userName = user.getFullName();
 				
+				//int totalSum = detailRepo.TotalSum(id);
 				Collection<Detail> userDetail = detailRepo.ValidUser(userId,id);  
 				
 				if(userDetail.isEmpty()) {
@@ -148,6 +151,13 @@ public class VideoController {
 					detail.setUserName(userName);
 		
 					detailRepo.save(detail);
+					
+					int totalLike = detailRepo.TotalLike(videoIds);
+					System.out.println(totalLike);
+					
+					Video viewVideo = videoRepo.getOne(id);
+					viewVideo.setLikeCount(totalLike);
+					videoRepo.save(viewVideo);
 					
 					
 					redirectAttributes.addFlashAttribute("message", "Video Liked");
@@ -202,6 +212,13 @@ public class VideoController {
 					detail.setUserName(userName);
 		
 					detailRepo.save(detail);
+					
+					int totalDislike = detailRepo.TotalDislike(videoIds);
+					System.out.println(totalDislike);
+					
+					Video viewVideo = videoRepo.getOne(id);
+					viewVideo.setDislikeCount(totalDislike);
+					videoRepo.save(viewVideo);
 					
 					
 					redirectAttributes.addFlashAttribute("message", "Video Disliked");
