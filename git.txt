@@ -1,0 +1,50 @@
+git init - empty repo
+git add - adds files tio the staging area for git 
+git add . - all file add 
+git commit - records the changes made to the files in a local repo.
+	 - each commit has a unique id
+	- try to give always c0mmit msg
+
+git commit -m "msg"
+
+git status - returns the current state of the repo
+	- if there are no changes it'll return noyhing to commit,
+	  working directory clean.
+	- ruturns current working branch 
+	- if a file is in the staging area, but not committed, it 	shows with git status
+
+git config - Name and email address assigned to commits from a local 	computer.(user.name and user.email)
+
+git config --global user.name "fesabelilla"
+git config --global user.email "fesabelilla@gmail.com"
+
+
+git branch - 
+	1. git branch - checkout current branch
+	2. git merge - integrate branches together 
+	3. git checkout - Used for switching branches
+
+git branch feature - creat a new branch name feature.
+git checkout master - go to master branch
+git merge feature - then feature and master branch are marged
+
+git branch -d feature -it will delete feature branch
+
+git checkout -b new -- create a new branch name new and switch that 		branch
+
+git remote add origin git@github.com:fesabelilla/Git-Test.git -(ssh link)
+
+git clone https://github.com/fesabelilla/GitTest1.git
+
+1. git status
+2. git add . or git add (file name)
+3. git commit -m "msg"
+4. “git push -u origin master” or “git push -u origin <remote_branch_name>”
+5. “git pull origin master” or “git pull origin <remote_branch_name>”
+
+Remote Add
+1. git init
+2. git remote add origin <repo url>
+3. git pull origin <branch name>
+
+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
